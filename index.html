@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Додо Пицца — Сеть пиццерий №1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="container">
+    <div class="header-flex">
+        <div class="header-left">
+            <img src="https://upload.wikimedia.org/wikipedia/ru/thumb/9/91/Dodo_Logo.svg/960px-Dodo_Logo.svg.png" class="logo" alt="Додо Пицца">
+            <div class="delivery-info">
+                <b>Доставка пиццы Москва</b>
+                <span>33 мин · 4.81 ★</span>
+            </div>
+        </div>
+        <button class="btn-login">Войти</button>
+    </div>
+</header>
+
+<nav class="sticky-nav">
+    <div class="container nav-flex">
+        <ul class="nav-links">
+            <li><a href="#pizzas">Пиццы</a></li>
+            <li><a href="#">Комбо</a></li>
+            <li><a href="#">Закуски</a></li>
+            <li><a href="#">Коктейли</a></li>
+            <li><a href="#">Напитки</a></li>
+            <li><a href="#">Десерты</a></li>
+        </ul>
+        <button class="btn-cart" id="cart-button">Корзина (0)</button>
+    </div>
+</nav>
+
+<main class="container">
+    <div class="stories-row">
+        <div class="story-item" style="background-image: url('https://cdn.dodostatic.net/static/Img/Story/6e7368d1f7054f9a8435d288d44747c3_538x716.jpeg');"></div>
+        <div class="story-item" style="background-image: url('https://cdn.dodostatic.net/static/Img/Story/6030b7a8684d46819660c1965e927508_538x716.jpeg');"></div>
+        <div class="story-item" style="background-image: url('https://cdn.dodostatic.net/static/Img/Story/357900b9795e49339798084a44f8011c_538x716.jpeg');"></div>
+        <div class="story-item" style="background-image: url('https://cdn.dodostatic.net/static/Img/Story/24933682970545298960613289947c1b_538x716.jpeg');"></div>
+        <div class="story-item" style="background-image: url('https://cdn.dodostatic.net/static/Img/Story/f6452d3a37b34f7889311e956bc5605d_538x716.jpeg');"></div>
+    </div>
+
+<section class="often-ordered">
+    <h2>Часто заказывают</h2>
+    <div class="mini-grid">
+        <div class="mini-card">
+            <img src="https://media.dodostatic.net/image/r:584x584/0198bf57bc517218ab93c762f4b0193e.avif" width="76">
+            <div><p>Пепперони фреш</p><span>от 289 ₽</span></div>
+        </div>
+        </div>
+</section> 
+
+    <h2 id="pizzas">Пиццы</h2>
+    <div class="product-grid" id="main-grid">
+        </div>
+</main>
+
+<div class="cookie">
+    Пицце нужен соус, а сайту — cookies. Используя наш сайт, вы соглашаетесь на сбор cookies.
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
