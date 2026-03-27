@@ -1,4 +1,8 @@
-const data = {
+/**
+ * Данные магазина Додо Пицца
+ * Используются прямые ссылки на медиа-сервер Додо
+ */
+const shopData = {
     often: [
         { 
             name: "Пепперони фреш", 
@@ -14,6 +18,11 @@ const data = {
             name: "Додстер", 
             price: 169, 
             img: "https://media.dodostatic.net/image/r:292x292/11ee796f932622f995872957771765c9.avif" 
+        },
+        { 
+            name: "2 соуса", 
+            price: 89, 
+            img: "https://media.dodostatic.net/image/r:292x292/11ee7970104e13568770a31b79d94943.avif" 
         }
     ],
     pizzas: [
@@ -60,6 +69,12 @@ const data = {
             desc: "Две пиццы 25 см на выбор. Для компании поменьше", 
             price: 899, 
             img: "https://media.dodostatic.net/image/r:584x584/11ee7970335805908959d57183e8787f.avif" 
+        },
+        { 
+            name: "Комбо от 599 ₽", 
+            desc: "Пицца 25 см, закуска и напиток. Наслаждайтесь!", 
+            price: 599, 
+            img: "https://media.dodostatic.net/image/r:584x584/018f3a3f65e2786396e949983995f50f.avif" 
         }
     ],
     drinks: [
@@ -67,40 +82,52 @@ const data = {
             name: "Добрый Кола", 
             desc: "0,5 л", 
             price: 99, 
-            img: "https://media.dodostatic.net/image/r:292x292/018f3a3f65e2786396e949983995f50f.avif" 
+            img: "https://media.dodostatic.net/image/r:584x584/018f3a3f65e2786396e949983995f50f.avif" 
+        },
+        { 
+            name: "Кофе Капучино", 
+            desc: "Горячий напиток на основе эспрессо и нежного молока", 
+            price: 169, 
+            img: "https://media.dodostatic.net/image/r:584x584/11ee7d618398f6d79066611f71101741.avif" 
         }
     ]
 };
 
-function createCard(item) {
-    // Используем замену .avif на .jpg в случае ошибки загрузки
-    const fallbackImg = item.img.replace('.avif', '.jpg');
+/**
+ * Создает HTML-разметку для основной карточки товара
+ */
+function createCardHTML(item) {
     return `
-        <div class="card">
-            <img src="${item.img}" 
-                 class="card-img" 
-                 alt="${item.name}" 
-                 onerror="this.onerror=null; this.src='${fallbackImg}';">
-            <h3>${item.name}</h3>
-            ${item.desc ? `<p>${item.desc}</p>` : ''}
-            <div class="card-footer">
-                <span class="price">от ${item.price} ₽</span>
-                <button class="btn-add">Выбрать</button>
+        <article class="card">
+            <div class="card-image-container">
+                <img src="${item.img}" 
+                     alt="${item.name}" 
+                     class="card-img" 
+                     loading="lazy"
+                     onerror="this.src='https://via.placeholder.com/300?text=Image+Not+Found'">
             </div>
-        </div>
+            <div class="card-content">
+                <h3>${item.name}</h3>
+                ${item.desc ? `<p class="desc">${item.desc}</p>` : ''}
+                <div class="card-footer">
+                    <span class="price">от ${item.price} ₽</span>
+                    <button class="btn-add">Выбрать</button>
+                </div>
+            </div>
+        </article>
     `;
 }
 
-function render() {
+/**
+ * Отрисовка всех блоков страницы
+ */
+function initializeApp() {
+    // Рендер "Часто заказывают"
     const miniGrid = document.getElementById('mini-grid');
-    const pizzaGrid = document.getElementById('pizza-grid');
-    const comboGrid = document.getElementById('combo-grid');
-    const drinksGrid = document.getElementById('drinks-grid');
-
-    if(miniGrid) {
-        miniGrid.innerHTML = data.often.map(item => `
+    if (miniGrid) {
+        miniGrid.innerHTML = shopData.often.map(item => `
             <div class="mini-card">
-                <img src="${item.img}" alt="${item.name}" onerror="this.src='${item.img.replace('.avif', '.jpg')}';">
+                <img src="${item.img}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/100'">
                 <div class="mini-info">
                     <p>${item.name}</p>
                     <span>от ${item.price} ₽</span>
@@ -109,9 +136,20 @@ function render() {
         `).join('');
     }
 
-    if(pizzaGrid) pizzaGrid.innerHTML = data.pizzas.map(createCard).join('');
-    if(comboGrid) comboGrid.innerHTML = data.combos.map(createCard).join('');
-    if(drinksGrid) drinksGrid.innerHTML = data.drinks.map(createCard).join('');
+    // Рендер основных категорий
+    const categories = {
+        'pizza-grid': shopData.pizzas,
+        'combo-grid': shopData.combos,
+        'drinks-grid': shopData.drinks
+    };
+
+    for (const [id, items] of Object.entries(categories)) {
+        const container = document.getElementById(id);
+        if (container) {
+            container.innerHTML = items.map(createCardHTML).join('');
+        }
+    }
 }
 
-document.addEventListener('DOMContentLoaded', render);
+// Запуск приложения после загрузки DOM
+document.addEventListener('DOMContentLoaded', initializeApp);
